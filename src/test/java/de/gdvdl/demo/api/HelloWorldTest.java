@@ -1,5 +1,6 @@
 package de.gdvdl.demo.api;
 
+import de.gdvdl.demo.service.Greeter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,8 @@ public class HelloWorldTest {
 
     @BeforeEach
     public void setUp() {
-        helloWorld = new HelloWorld("Hello From Test");
+        Greeter greeter = new Greeter("Hello From Test");
+        helloWorld = new HelloWorld(greeter);
     }
 
     @Test

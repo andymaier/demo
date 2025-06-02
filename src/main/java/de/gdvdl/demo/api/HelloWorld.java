@@ -1,5 +1,6 @@
 package de.gdvdl.demo.api;
 
+import de.gdvdl.demo.service.Greeter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,15 +8,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorld {
 
+    private final Greeter greeter;
 
-    final String myname;
-
-    public HelloWorld(@Qualifier("myname") final String myname) {
-        this.myname = myname;
+    public HelloWorld(Greeter greeter) {
+        this.greeter = greeter;
     }
 
     @RequestMapping("/hello")
     public String hello() {
-        return String.format("Hello %s!", myname);
+        return String.format(greeter.getGreeting());
     }
 }
