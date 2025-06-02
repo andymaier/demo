@@ -1,2 +1,2 @@
-INSERT INTO FAEHIGKEIT (id, name) VALUES('550e8400e29b11d4a716446655440000','Schlafen');
-INSERT INTO HELD (id, name, gewicht) VALUES('926c093b841c435786cad87763373341','Superheld', '65');
+INSERT INTO FAEHIGKEIT (id, name) VALUES("97444991-5a9e-4ef7-9db9-0889ce3f738e","Schlafen");
+INSERT INTO HELD (id, name, gewicht) VALUES("6c9cda8a-c4f1-43c5-b9f0-95bfb15e67c4","Superheld", "65");

@@ -11,6 +11,6 @@ public interface HeldRepository extends JpaRepository<Held, UUID> {
 
     List<Held> findByName(String name);
 
-    @Query("select a from Held a where a.name == ?1")
+    @Query("select a from Held a where a.name = ?1")
     List<Held> myQuery(String name);
 }
