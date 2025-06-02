@@ -1,0 +1,9 @@
+POST http://localhost:8081/messaging
+Content-Type: application/json
+
+{
+  "destination": "my-queue",
+  "message": "my super message"
+}
+
+###
