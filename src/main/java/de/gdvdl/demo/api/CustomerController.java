@@ -8,7 +8,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("customer")
+@RequestMapping("customers")
 public class CustomerController {
 
     private final ConcurrentHashMap<UUID, Customer> customers;
@@ -29,7 +29,8 @@ public class CustomerController {
 
     @PostMapping
     public Customer createCustomer(@RequestBody Customer customer) {
-        return customers.put(customer.id(), customer);
+        customers.put(customer.id(), customer);
+        return customers.get(customer.id());
     }
 
     public record Customer(UUID id, String name,

@@ -1,0 +1,19 @@
+GET http://localhost:8081/customers
+Accept: application/json
+
+###
+POST http://localhost:8081/customers
+Content-Type: application/json
+
+{
+  "name": "Testname",
+  "forname": "Testvorname",
+  "age": 24,
+  "id": "0bf4fb30-4d46-4c14-814c-ca2b09369f03"
+}
+
+###
+
+GET http://localhost:8081/customers/0bf4fb30-4d46-4c14-814c-ca2b09369f03
+Accept: application/json
+
