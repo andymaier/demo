@@ -1,10 +1,12 @@
 package de.gdvdl.demo.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gdvdl.demo.domain.Faehigkeit;
 import de.gdvdl.demo.domain.Held;
 import de.gdvdl.demo.repositories.FaehigkeitRepository;
 import de.gdvdl.demo.repositories.HeldRepository;
 import de.gdvdl.demo.repositories.NotFoundException;
+import de.gdvdl.demo.service.messaging.MessageProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -23,10 +26,17 @@ public class HeldenController {
 
     private final HeldRepository repo;
     private final FaehigkeitRepository faehigkeitRepository;
+    private final MessageProducer producer;
+    private final ObjectMapper mapper;
 
-    public HeldenController(HeldRepository heldRepository, FaehigkeitRepository faehigkeitRepository) {
+    public HeldenController(HeldRepository heldRepository,
+                            FaehigkeitRepository faehigkeitRepository,
+                            MessageProducer producer,
+                            ObjectMapper mapper) {
         this.repo = heldRepository;
         this.faehigkeitRepository = faehigkeitRepository;
+        this.producer = producer;
+        this.mapper = mapper;
     }
 
     @GetMapping
@@ -69,9 +79,10 @@ public class HeldenController {
     @PostMapping
     public ResponseEntity<Held> create(@RequestBody Held held, UriComponentsBuilder builder) {
         held.getFaehigkeiten().forEach(this::findOrCreateFaehigkeiten);
-        Held newHeld = repo.save(held);
-        URI uri = builder.path("/helden/{id}").buildAndExpand(newHeld.getId()).toUri();
-        return ResponseEntity.created(uri).body(newHeld);
+        producer.send("my-queue", mapper.valueToTree(held));
+        //Held newHeld = repo.save(held);
+        ///URI uri = builder.path("/helden/{id}").buildAndExpand(newHeld.getId()).toUri();
+        return ResponseEntity.accepted().build();
     }
 
     private void findOrCreateFaehigkeiten(Faehigkeit faehigkeit) {
