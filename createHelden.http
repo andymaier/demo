@@ -37,7 +37,7 @@ Content-Type: application/json
 }
 
 ### Test: Update Held - Change Name, Gewicht, and Fähigkeiten
-PUT http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+PUT http://localhost:8081/helden/691b1951-1bcb-4d86-b6e7-63b4aeaee642
 Content-Type: application/json
 
 {
