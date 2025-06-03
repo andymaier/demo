@@ -31,17 +31,20 @@ public class HeldenController {
 
     @GetMapping
     public List<Held> index() {
+        log.info("Helden wurden abgerufen");
         return repo.findAll();
     }
 
     @GetMapping("{id}")
     public Held getById(@PathVariable UUID id) {
+        log.info("Held wurde abgerufen" + id);
         return repo.findById(id).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("search")
     public Held getByString(@RequestParam String name) {
         log.info(name);
+        log.info("Held wird gesucht: " + name);
         return repo.findByName(name).stream().findFirst().orElseThrow(NotFoundException::new);
     }
 
@@ -82,6 +85,7 @@ public class HeldenController {
 
     @PutMapping("{id}")
     public ResponseEntity<Held> update(@PathVariable UUID id, @RequestBody Held updatedHeld) {
+        log.info("Held wird geändert: " + updatedHeld.toString());
         Held existingHeld = repo.findById(id).orElseThrow(NotFoundException::new);
 
         existingHeld.setName(updatedHeld.getName());
@@ -100,6 +104,7 @@ public class HeldenController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        log.info("Held wird gelöscht: " + id);
         Held held = repo.findById(id).orElseThrow(NotFoundException::new);
         repo.delete(held);
         return ResponseEntity.noContent().build();

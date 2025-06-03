@@ -1,0 +1,33 @@
+<configuration>
+
+    <!-- Define common properties -->
+    <property name="LOGSTASH_HOST" value="localhost"/>
+    <property name="LOGSTASH_PORT" value="5044"/>
+    <property name="APP_NAME" value="DemoApplication"/>
+    <property name="LOG_LEVEL" value="INFO"/>
+
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <provider class="net.logstash.logback.composite.loggingevent.MessageJsonProvider"/>
+        </encoder>
+    </appender>
+
+    <!-- Logstash Appender -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <!-- Include custom metadata -->
+            <customFields>{"app-name": "${APP_NAME}"}</customFields>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="LOGSTASH" />
+    </root>
+
+    <!-- Logger for custom packages -->
+    <logger name="de.gdvdl.demo" level="DEBUG"/>
+</configuration>
