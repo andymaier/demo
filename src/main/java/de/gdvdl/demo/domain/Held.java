@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Held {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private double gewicht;

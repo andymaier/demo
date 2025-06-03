@@ -15,7 +15,7 @@ public class MessageProducer {
         this.jmsTemplate = template;
     }
 
-    public void send(String destination, JsonNode message) {
+    public void send(String destination, String message) {
         jmsTemplate.convertAndSend(destination, message);
     }
 }

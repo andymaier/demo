@@ -1,5 +1,6 @@
 package de.gdvdl.demo.api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gdvdl.demo.domain.Faehigkeit;
 import de.gdvdl.demo.domain.Held;
@@ -77,9 +78,11 @@ public class HeldenController {
     }*/
 
     @PostMapping
-    public ResponseEntity<Held> create(@RequestBody Held held, UriComponentsBuilder builder) {
+    public ResponseEntity<Held> create(@RequestBody Held held, UriComponentsBuilder builder) throws JsonProcessingException {
+        UUID uuid = UUID.randomUUID();
+        held.setId(uuid);
         held.getFaehigkeiten().forEach(this::findOrCreateFaehigkeiten);
-        producer.send("my-queue", mapper.valueToTree(held));
+        producer.send("my-queue", mapper.writeValueAsString(held));
         //Held newHeld = repo.save(held);
         ///URI uri = builder.path("/helden/{id}").buildAndExpand(newHeld.getId()).toUri();
         return ResponseEntity.accepted().build();

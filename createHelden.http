@@ -73,7 +73,7 @@ Content-Type: application/json
 }
 
 ### Test: Verify the Update
-GET http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+GET http://localhost:8081/helden/851cbaae-adc5-4837-b0af-44379e12839d
 
 ### Test: Delete Held by ID
 # Replace {{held_id}} with the ID of the Held to delete
