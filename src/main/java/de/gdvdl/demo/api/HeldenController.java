@@ -2,16 +2,18 @@ package de.gdvdl.demo.api;
 
 import de.gdvdl.demo.domain.Held;
 import de.gdvdl.demo.repositories.HeldRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import de.gdvdl.demo.repositories.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("helden")
+@Slf4j
 public class HeldenController {
 
     private final HeldRepository repo;
@@ -27,9 +29,12 @@ public class HeldenController {
 
     @GetMapping("{id}")
     public Held getById(@PathVariable UUID id) {
-        return repo.findById(id).get();
+        return repo.findById(id).orElseThrow(NotFoundException::new);
     }
 
-
-
+    @GetMapping("search")
+    public Held getByString(@RequestParam String name) {
+        log.info(name);
+        return repo.findByName(name).stream().findFirst().orElseThrow(NotFoundException::new);
+    }
 }
