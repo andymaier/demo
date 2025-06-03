@@ -2,6 +2,7 @@ package de.gdvdl.demo.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Held {
 
     @Id
@@ -22,9 +24,6 @@ public class Held {
 
     @ManyToMany
     private Set<Faehigkeit> faehigkeiten;
-
-    public Held() {
-    }
 
     public Held(String name, double gewicht, Faehigkeit... faehigkeiten) {
         this.name = name;
