@@ -1,13 +1,20 @@
 package de.gdvdl.demo.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Faehigkeit {
 
     @Id
@@ -16,10 +23,13 @@ public class Faehigkeit {
 
     private String name;
 
-    public Faehigkeit(){
-    }
-    public Faehigkeit(String name) {
-        this.name = name;
-    }
+    /*@ManyToMany
+    @JoinTable(
+            name = "held_faehigkeit",
+            joinColumns = @JoinColumn(name = "faehigkeit_id"),
+            inverseJoinColumns = @JoinColumn(name = "held_id")
+    )
+    private Set<Held> helden = new HashSet<>();
+*/
 
 }

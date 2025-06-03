@@ -22,7 +22,7 @@ public class Held {
     private String name;
     private double gewicht;
 
-    @ManyToMany
+    @ManyToMany//(mappedBy = "helden", cascade = CascadeType.ALL)
     private Set<Faehigkeit> faehigkeiten;
 
     public Held(String name, double gewicht, Faehigkeit... faehigkeiten) {

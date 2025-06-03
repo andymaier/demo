@@ -1,0 +1,83 @@
+GET http://localhost:8081/helden
+Accept: application/json
+
+###
+POST http://localhost:8081/helden
+Content-Type: application/json
+
+{
+  "name": "Testvorname",
+  "gewicht": 65,
+  "faehigkeiten": [
+    {
+      "name": "Fliegen"
+    }]
+}
+
+###
+
+GET http://localhost:8081/helden/0bf4fb30-4d46-4c14-814c-ca2b09369f03
+Accept: application/json
+
+### Test: Create a Held with Faehigkeiten
+POST http://localhost:8081/helden
+Content-Type: application/json
+
+{
+  "name": "TestHeld",
+  "gewicht": 70.0,
+  "faehigkeiten": [
+    {
+      "name": "Fliegen"
+    },
+    {
+      "name": "Unsichtbarkeit"
+    }
+  ]
+}
+
+### Test: Update Held - Change Name, Gewicht, and Fähigkeiten
+PUT http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+Content-Type: application/json
+
+{
+  "name": "UpdatedHeld",
+  "gewicht": 75.0,
+  "faehigkeiten": [
+    {
+      "name": "Superkraft"
+    },
+    {
+      "name": "Schwimmen"
+    }
+  ]
+}
+
+### Test: no skills field
+PUT http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+Content-Type: application/json
+
+{
+  "name": "UpdatedHeld",
+  "gewicht": 75.0
+}
+
+### Test: empty skills field
+PUT http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+Content-Type: application/json
+
+{
+  "name": "UpdatedHeld",
+  "gewicht": 75.0,
+  "faehigkeiten": []
+}
+
+### Test: Verify the Update
+GET http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+
+### Test: Delete Held by ID
+# Replace {{held_id}} with the ID of the Held to delete
+DELETE http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
+
+### Test: Verify Deletion
+GET http://localhost:8081/helden/e7c03d60-0b79-43d8-bc19-d816f6176491
